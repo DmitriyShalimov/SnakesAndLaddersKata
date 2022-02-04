@@ -3,6 +3,7 @@ package com.example.SnakesAndLaddersKata.service;
 import com.example.SnakesAndLaddersKata.entity.Dice;
 import com.example.SnakesAndLaddersKata.entity.PlayDesk;
 import com.example.SnakesAndLaddersKata.entity.Token;
+import com.example.SnakesAndLaddersKata.entity.WinnerToken;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class SnakesAndLaddersKata {
         }
     }
 
-    public void moveToken() {
+    public WinnerToken moveToken() {
         int position = currentToken.token.getPosition() + dice.role();
         if (position > 100) {
             position = currentToken.token.getPosition();
@@ -43,6 +44,7 @@ public class SnakesAndLaddersKata {
         int newPosition = playDesk.getPosition(position);
         currentToken.token.setPosition(newPosition);
         currentToken = currentToken.next;
+        return null;
     }
 
     private class Node {
