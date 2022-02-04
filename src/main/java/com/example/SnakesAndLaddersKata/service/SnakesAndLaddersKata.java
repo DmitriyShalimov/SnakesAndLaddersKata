@@ -1,19 +1,19 @@
 package com.example.SnakesAndLaddersKata.service;
 
+import com.example.SnakesAndLaddersKata.entity.Dice;
 import com.example.SnakesAndLaddersKata.entity.PlayDesk;
 import com.example.SnakesAndLaddersKata.entity.Token;
-import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-
-@AllArgsConstructor
 public class SnakesAndLaddersKata {
+    private final Dice dice;
     private final List<Token> tokens;
     private final PlayDesk playDesk;
     private Node currentToken;
 
-    public SnakesAndLaddersKata(List<Token> tokens, PlayDesk playDesk) {
+    public SnakesAndLaddersKata(List<Token> tokens, PlayDesk playDesk, Dice dice) {
+        this.dice = dice;
         this.tokens = tokens;
         this.playDesk = playDesk;
 
@@ -35,9 +35,12 @@ public class SnakesAndLaddersKata {
         }
     }
 
-    public void moveToken(int moveValue) {
-        int currentPosition = currentToken.token.getPosition();
-        int newPosition = playDesk.getPosition( currentPosition + moveValue);
+    public void moveToken() {
+        int position = currentToken.token.getPosition() + dice.role();
+        if (position > 100) {
+            position = currentToken.token.getPosition();
+        }
+        int newPosition = playDesk.getPosition(position);
         currentToken.token.setPosition(newPosition);
         currentToken = currentToken.next;
     }
